@@ -5,15 +5,12 @@ URL mapping for the User API.
 
 from django.urls import path
 
-from .views import (
-    CreateUserView,
-    AuthTokenView
-)
-
+from . import views
 
 app_name = 'user'
 
 urlpatterns = [
-    path('create/', CreateUserView.as_view(), name='create'),
-    path('token/', AuthTokenView.as_view(), name='token'),
+    path('create/', views.CreateUserView.as_view(), name='create'),
+    path('token/', views.AuthTokenView.as_view(), name='token'),
+    path('me/', views.ManageUserView.as_view(), name='me'),
 ]
