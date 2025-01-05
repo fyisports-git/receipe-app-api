@@ -51,9 +51,9 @@ class Recipe(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-    ),
-    title = models.CharField(max_length=255),
-    time_in_min = models.IntegerField(),
+    )
+    title = models.CharField(max_length=255)
+    time_in_min = models.IntegerField()
     price = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField(blank=True)
     link = models.CharField(max_length=255, blank=True)
