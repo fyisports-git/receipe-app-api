@@ -13,10 +13,18 @@ from rest_framework.test import APIClient
 
 from core.models import Recipe
 
-from recipe.serializers import RecipeSerializer
+from recipe.serializers import (
+    RecipeSerializer,
+    RecipeDetailSerializer,
+)
 
 
 RECIPE_LIST_URL = reverse('recipe:recipe-list')
+
+
+def get_detail_url(recipe_id):
+    """Create and return a Recipe detail URL."""
+    return reverse('recipe:recipe-detail', args=[recipe_id])
 
 
 def create_recipe(user, **params):
@@ -89,5 +97,15 @@ class PrivateRecipeAPITests(TestCase):
 
         recipies = Recipe.objects.filter(user=self.user)
         serializer = RecipeSerializer(recipies, many=True)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)
+
+    def test_get_recipe_detail(self):
+        """Test to get the Recipe detail"""
+        recipe = create_recipe(user=self.user)
+
+        res = self.client.get(path=get_detail_url(recipe.id))
+
+        serializer = RecipeDetailSerializer(recipe)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
