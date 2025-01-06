@@ -67,12 +67,12 @@ class PrivateRecipeAPITests(TestCase):
         res = self.client.get(RECIPE_LIST_URL)
 
         recipies = Recipe.objects.all().order_by('-id')
-        serializer = RecipeSerializer(recipies, Many=True)
+        serializer = RecipeSerializer(recipies, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
-    def test_retrieved_receipies_limited_to_user(self):
+    def test_retrieved_recipies_limited_to_user(self):
         """
         Tests that retrieved recipies are limited
         to authenticated User only
@@ -88,6 +88,6 @@ class PrivateRecipeAPITests(TestCase):
         res = self.client.get(RECIPE_LIST_URL)
 
         recipies = Recipe.objects.filter(user=self.user)
-        serializer = RecipeSerializer(recipies, Many=True)
+        serializer = RecipeSerializer(recipies, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)

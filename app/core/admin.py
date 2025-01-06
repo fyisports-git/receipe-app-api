@@ -20,7 +20,7 @@ class UserAdmin(BaseUserAdmin):
                 'fields': (
                     'name',
                     'email',
-                    'password'
+                    'password',
                 )
             }
         ),
@@ -39,7 +39,7 @@ class UserAdmin(BaseUserAdmin):
                     'last_login',
                 )
             }
-        )
+        ),
     )
     readonly_fields = ['last_login']
     add_fieldsets = (
@@ -53,7 +53,7 @@ class UserAdmin(BaseUserAdmin):
                 'is_active',
                 'is_staff',
                 'is_superuser',
-            )
+            ),
         }),
     )
 
